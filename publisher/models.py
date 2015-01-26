@@ -180,6 +180,8 @@ class PublisherModelBase(models.Model):
 
         # Mark the published object as a draft
         draft_obj = publish_obj
+        if draft_obj.slug:
+            draft_obj.slug += '-draft'
         publish_obj = None
 
         draft_obj.publisher_is_draft = draft_obj.STATE_DRAFT

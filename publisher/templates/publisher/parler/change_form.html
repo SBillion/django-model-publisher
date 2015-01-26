@@ -20,10 +20,15 @@
 				</li>
 			{% endif %}
 			{% if preview_draft_btn %}
-				<li>
-					<a href="{{ original.get_absolute_url }}?edit">Preview Draft</a>
-				</li>
-			{% endif %}
+						<li>
+							<a href="{{ original.get_absolute_url }}/edit">Preview Draft</a>
+						</li>
+					{% endif %}
+                    {% if publish_btn_live %}
+						<li>
+							<a href="{{ original.publisher_linked.get_absolute_url }}">View Published</a>
+						</li>
+					{% endif %}
 		{% endif %}
     {% endif %}
 	{{ block.super }}
