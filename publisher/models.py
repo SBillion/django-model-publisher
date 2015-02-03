@@ -274,6 +274,13 @@ class PublisherModel(PublisherModelBase):
             ('can_publish', 'Can publish'),
         )
 
+    def get_draft_url(self):
+        if self.is_published:
+            return self.publisher_draft.get_absolute_url() + 'edit/'
+        else:
+            return self.get_absolute_url() + 'edit/'
+
+
     def save(self, suppress_modified=False, **kwargs):
         if suppress_modified is False:
             self.update_modified_at()
