@@ -13,6 +13,9 @@ def publisher_pre_delete(sender, **kwargs):
             instance.publisher_linked):
         instance.publisher_linked.delete()
 
+# Sent when a model is being published, before the actual published (if existing) is deleted
+publisher_publish_pre_delete_published = Signal(providing_args=['instance'])
+
 
 # Sent when a model is being published, before the draft is saved (the draft is sent)
 publisher_publish_pre_save_draft = Signal(providing_args=['instance'])

@@ -6,7 +6,7 @@ from .managers import PublisherManager, PublisherQuerySet
 from .utils import assert_draft
 from .signals import (
     publisher_publish_pre_save_draft, publisher_post_publish,
-    publisher_pre_unpublish, publisher_post_unpublish)
+    publisher_pre_unpublish, publisher_post_unpublish, publisher_publish_pre_delete_published)
 
 
 class PublisherModelBase(models.Model):
@@ -97,7 +97,8 @@ class PublisherModelBase(models.Model):
             # In some random cases a placeholder has been shared between the draft and published
             # version of the page
             self.patch_placeholders(draft_obj)
-
+            publisher_publish_pre_delete_published.send(sender=draft_obj.__class__,
+                                                      instance=draft_obj)
             # Remove the current published record
             draft_obj.publisher_linked.delete()
 
